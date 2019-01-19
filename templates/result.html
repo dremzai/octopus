@@ -1,0 +1,20 @@
+<!DOCTYPE html >
+{% load staticfiles %}
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>搜索</title>
+</head>
+
+<body>
+    <form action="" method="post">
+    {#    <input type="text" name="extr_no_get">#}
+        <textarea row="10" cols="20" name = "getsql">Select </textarea>
+        <input type="submit" value="执行">
+    </form>
+
+<h1>命中：{{ total_nums }}</h1>
+<h1>清单：{{ all_hits }}</h1>
+<h1>关键字：{{ key_words }}</h1>
+
+</body>
+</html>

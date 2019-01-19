@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Octopus Index</title>
+</head>
+<body>
+    <hl style="background-color: antiquewhite;color: #000;">This is Octopus!</hl><br>
+    <a href="http://xxx.xxx.xxx.xxx:8000/xadmin" target="_blank">配置表</a>
+    <a href="http://xxx.xxx.xxx.xxx:4040" target="_blank">Spark监控</a>
+    <a href="http://xxx.xxx.xxx.xxx:8000/oct/execsql/" target="_blank">执行SQL</a>
+    <a href="http://xxx.xxx.xxx.xxx:8000/oct/execessql/" target="_blank">执行SQL-ES</a>
+    <a href="http://xxx.xxx.xxx.xxx:8000/oct/execpythoncmd/" target="_blank">执行PyCmd</a>
+    <a href="http://xxx.xxx.xxx.xxx:8000/oct/test/xx" target="_blank">测试页面</a>
+    <a href="http://xxx.xxx.xxx.xxx:5601" target="_blank">kibana</a><br>
+    <a href="http://xxx.xxx.xxx.xxx:50070/explorer.html#/" target="_blank">hdfs</a><br>
+    <h3>客户端命令：</h3>
+    <a>curl -L "填入完整url"</a><br>
+    <h3>http接口：</h3>
+    <h4>数据抽取：</h4>
+    <a>1、弱校验抽取（可抽取未配置的表）</a><br>
+    <a>格式：http://IP:8000/oct/extrdata/数据源名称/表名/抽取条件</a>
+    <a href="http://xxx.xxx.xxx.xxx:8000/oct/extrdata/s01/test_01/rownum<=10" target="_blank">例子</a><br>
+    <a>2、强校验抽取（仅可抽取已配置的表）</a><br>
+    <a>格式：http://IP:8000/oct/extrdata/数据源名称/表名</a>
+    <a href="http://xxx.xxx.xxx.xxx:8000/oct/extrdata/s01/test_01" target="_blank">例子</a><br>
+    <h4>指标加工：</h4>
+    <a>格式：http://IP:8000/oct/ind/指标名称</a>
+    <a href="http://xxx.xxx.xxx.xxx:8000/oct/extrdata/s01/depo_detail_01" target="_blank">抽取</a>
+    <a href="http://xxx.xxx.xxx.xxx:8000/oct/ind/ind_depo_0001" target="_blank">加工</a>
+    <a href="http://xxx.xxx.xxx.xxx:8000/oct/refdim" target="_blank">刷新维度</a><br>
+    <a href="http://xxx.xxx.xxx.xxx:8000/oct/extrdata/s01/depo_detail_02" target="_blank">抽取</a>
+    <a href="http://xxx.xxx.xxx.xxx:8000/oct/ind/ind_depo_0002" target="_blank">加工</a>
+    <a href="http://xxx.xxx.xxx.xxx:8000/oct/refdim" target="_blank">刷新维度</a><br>
+    <a>问题：</a><br>
+    <a>维度字段要与维度保持一致</a><br>
+    <a>根据字段名取维度父级进行汇总计算</a><br>
+    <br>
+{#    <form action="" method="post">#}
+{#        <input type="text" name="extr_no_get">#}
+{#        <input type="submit" value="submit">#}
+{#    </form>#}`
+{#    <hl>show</hl>#}
+    <table border="1">
+        <thead>
+            <th>extr_no       </th>
+            <th>src_sys       </th>
+            <th>src_tab_nm    </th>
+            <th>extr_condition</th>
+            <th>extr_freq     </th>
+            <th>save_freq     </th>
+            <th>start_dt      </th>
+            <th>end_dt        </th>
+            <th>c_oper_no     </th>
+            <th>c_dt          </th>
+            <th>m_oper_no     </th>
+            <th>m_dt          </th>
+        </thead>
+        <tbody>
+            {% for line in data %}
+                    <tr>
+                        <td>{{ line.extr_no }}</td>
+                        <td>{{ line.src_sys }}</td>
+                        <td>{{ line.src_tab_nm }}</td>
+                        <td>{{ line.extr_condition }}</td>
+                        <td>{{ line.extr_freq }}</td>
+                        <td>{{ line.save_freq }}</td>
+                        <td>{{ line.start_dt }}</td>
+                        <td>{{ line.end_dt }}</td>
+                        <td>{{ line.c_oper_no }}</td>
+                        <td>{{ line.c_dt }}</td>
+                        <td>{{ line.m_oper_no }}</td>
+                        <td>{{ line.m_dt }}</td>
+                    </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <script src="/static/js/jquery-3.3.1.js"></script>
+
+    <h4>浏览器测试地址：</h4>
+    <h4>/系统名称/表名/抽取条件</h4>
+    <a href="http://xxx.xxx.xxx.xxx:8000/oct/extrdata/S01/test_01/rownum<=10" target="_blank">
+        http://xxx.xxx.xxx.xxx:8000/oct/extrdata/S01/test_01/rownum<=10</a><br>
+    <a href="http://xxx.xxx.xxx.xxx:8000/oct/extrdata/S01/test_02/rownum<=10" target="_blank">
+        http://xxx.xxx.xxx.xxx:8000/oct/extrdata/S01/test_02/rownum<=10</a><br>
+    <a href="http://xxx.xxx.xxx.xxx:8000/oct/extrdata/S01/test_01" target="_blank">
+        http://xxx.xxx.xxx.xxx:8000/oct/extrdata/S01/test_01</a><br>
+    <a href="http://xxx.xxx.xxx.xxx:8000/oct/extrdata/S01/test_02" target="_blank">
+        http://xxx.xxx.xxx.xxx:8000/oct/extrdata/S01/test_02</a><br>
+    <a href="http://xxx.xxx.xxx.xxx:8000/oct/execurlsql/select * from s01_test_01" target="_blank">
+        http://xxx.xxx.xxx.xxx:8000/oct/execurlsql/select * from s01_test_01</a><br>
+    <a href="http://xxx.xxx.xxx.xxx:8000/oct/execurlsql/select * from s01_test_02" target="_blank">
+        http://xxx.xxx.xxx.xxx:8000/oct/execurlsql/select * from s01_test_02</a><br>
+    <a href="http://xxx.xxx.xxx.xxx:8000/oct/execsql" target="_blank">
+        http://xxx.xxx.xxx.xxx:8000/oct/execsql</a><br>
+    <a href="http://xxx.xxx.xxx.xxx:8000/oct/ind/IND_DEPO_0001" target="_blank">
+        http://xxx.xxx.xxx.xxx:8000/oct/ind/IND_DEPO_0001</a><br>
+</body>
+</html>
